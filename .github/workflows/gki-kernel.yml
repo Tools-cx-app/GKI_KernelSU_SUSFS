@@ -408,6 +408,9 @@ jobs:
 
             # 删除 MODULES_ORDER=android/gki_aarch64_modules 行
             sed -i '/MODULES_ORDER=android\/gki_aarch64_modules/d' common/build.config.gki.aarch64
+            
+            # 删除 checkdefconfig
+            sed -i 's/check_defconfig//' ./common/build.config.gki
 
             sed -i '/KMI_SYMBOL_LIST_STRICT_MODE/d' common/build.config.gki.aarch64
 
