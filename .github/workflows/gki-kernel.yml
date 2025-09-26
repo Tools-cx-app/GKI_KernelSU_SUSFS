@@ -222,7 +222,7 @@ jobs:
           bash drivers/rekernel/setupver.sh
           cd drivers
           echo "source drivers/rekernel/Kconfig" >> Kconfig
-          echo "obj-$(CONFIG_REKERNEL) += rekernel/" >> Kconfig
+          echo "obj-$(CONFIG_REKERNEL) += rekernel/" >> Makefile
       
       - name: 确定 KernelSU 的分支
         run: |
