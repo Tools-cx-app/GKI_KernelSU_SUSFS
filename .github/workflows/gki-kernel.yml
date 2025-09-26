@@ -220,7 +220,7 @@ jobs:
           REKERNEL=$(realpath Re-Kernel)
           cd Re-Kernel
           curl -LSs "https://github.com/Tools-cx-app/gki_patch/blob/main/rekernel.patch" -o rekernel.patch
-          patch -p1 > rekernel.patch
+          patch -p1 -F 3 < rekernel.patch
           echo '切换到驱动目录'
           cd "$CONFIG/common/drivers/"
           echo '当前目录$(pwd),下载支持补丁'
