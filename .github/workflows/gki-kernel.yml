@@ -224,7 +224,7 @@ jobs:
           echo '切换到驱动目录'
           cd "$CONFIG/common/drivers/"
           echo '当前目录$(pwd),下载支持补丁'
-          cp "$REKERNEL/LKM-Source/rekernel.*" ./
+          cp $REKERNEL/LKM-Source/rekernel.* ./
           echo '补丁加入构建'
           echo "obj-y += rekernel.o" >> Makefile
           tail -n 3 Makefile
