@@ -215,6 +215,7 @@ jobs:
 
       - name: 添加Re:Kernel
         run: |
+          CONFIG=$(realpath $CONFIG)
           git clone https://github.com/Sakion-Team/Re-Kernel.git
           REKERNEL=$(realpath Re-Kernel)
           cd Re-Kernel
