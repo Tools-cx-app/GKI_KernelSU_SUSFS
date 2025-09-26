@@ -219,7 +219,7 @@ jobs:
           git clone https://github.com/Sakion-Team/Re-Kernel.git
           REKERNEL=$(realpath Re-Kernel)
           cd Re-Kernel
-          curl -LSs "https://github.com/Tools-cx-app/gki_patch/blob/main/rekernel.patch" -o rekernel.patch
+          curl -LSs "https://github.com/Tools-cx-app/gki_patch/raw/main/rekernel.patch" -o rekernel.patch
           patch -p1 -F 3 < rekernel.patch
           echo '切换到驱动目录'
           cd "$CONFIG/common/drivers/"
