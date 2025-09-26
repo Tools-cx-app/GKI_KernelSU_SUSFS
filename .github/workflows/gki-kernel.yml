@@ -212,6 +212,17 @@ jobs:
           echo '补丁加入构建'
           echo "obj-y += hmbird_patch.o" >> Makefile
           tail -n 3 Makefile
+
+      - name: 添加Re:Kernel
+        run: |
+          echo '切换到驱动目录'
+          cd "$CONFIG/common/drivers/"
+          echo '当前目录$(pwd),下载支持补丁'
+          curl -LSOs "https://github.com/Sakion-Team/Re-Kernel/raw/main/LKM-Source/rekernel.c"
+          curl -LSOs "https://github.com/Sakion-Team/Re-Kernel/raw/main/LKM-Source/rekernel.h"
+          echo '补丁加入构建'
+          echo "obj-y += rekernel.o" >> Makefile
+          tail -n 3 Makefile
       
       - name: 确定 KernelSU 的分支
         run: |
