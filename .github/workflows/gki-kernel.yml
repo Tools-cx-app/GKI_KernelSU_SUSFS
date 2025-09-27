@@ -216,10 +216,12 @@ jobs:
       - name: 添加Re:Kernel
         run: |
           curl -LSs "https://github.com/Tools-cx-app/gki_patch/raw/main/rekernel.zip" -o rekernel.zip
-          unzip rekernel.zip -d "$CONFIG/common/drivers/rekernel"
+          unzip rekernel.zip -d "$CONFIG/common/drivers/"
           echo '开始添加'
           cd "$CONFIG/common/"
-          bash drivers/rekernel/setupver.sh
+          cp drivers/rekernel/setupver.sh ./
+          chmod +x setupver.sh
+          ./setupver.sh
           cd drivers
           awk '
             /endmenu/ { last_endmenu_line = NR }
