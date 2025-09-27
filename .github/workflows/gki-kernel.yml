@@ -217,7 +217,7 @@ jobs:
               for (i=1; i<=NR; i++) {
                 if (i == last_endmenu_line) {
                   sub(/endmenu/, "", lines[i]);
-                  print lines[i] "source \"/drivers/rekernel/Kconfig\""
+                  print lines[i] "source \"drivers/rekernel/Kconfig\""
                   print ""
                   print "endmenu"
                 } else {
