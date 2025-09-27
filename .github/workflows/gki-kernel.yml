@@ -221,7 +221,22 @@ jobs:
           cd "$CONFIG/common/"
           bash drivers/rekernel/setupver.sh
           cd drivers
-          echo "source drivers/rekernel/Kconfig" >> Kconfig
+          awk '
+            /endmenu/ { last_endmenu_line = NR }
+            { lines[NR] = $0 }
+            END {
+              for (i=1; i<=NR; i++) {
+                if (i == last_endmenu_line) {
+                  sub(/endmenu/, "", lines[i]);
+                  print lines[i] "source \"/drivers/rekernel/Kconfig\""
+                  print ""
+                  print "endmenu"
+                } else {
+                    print lines[i]
+                }
+              }
+            }
+            ' ./Kconfig > Kconfig.tmp && mv Kconfig.tmp ./Kconfig
           echo "obj-$(CONFIG_REKERNEL) += rekernel/" >> Makefile
       
       - name: 确定 KernelSU 的分支
