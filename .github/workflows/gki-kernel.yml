@@ -239,7 +239,7 @@ jobs:
               }
             }
             ' ./Kconfig > Kconfig.tmp && mv Kconfig.tmp ./Kconfig
-          echo "obj-$(CONFIG_REKERNEL) += rekernel/" >> Makefile
+          echo "obj-\$(CONFIG_REKERNEL) += rekernel/" >> Makefile
       
       - name: 确定 KernelSU 的分支
         run: |
