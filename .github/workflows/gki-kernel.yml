@@ -217,6 +217,15 @@ jobs:
           echo "REKERNEL=y" >> $CONFIG_FILE
           tail -n 3 Makefile
 
+      - name: 添加 BBG
+        run: |
+          echo "更改为配置目录: $CONFIG..."
+          cd "$CONFIG"
+          
+          echo "Adding BBG"
+          wget -O- https://github.com/vc-teahouse/Baseband-guard/raw/main/setup.sh | bash
+          echo "CONFIG_BBG=y" >> ./common/arch/arm64/configs/gki_defconfig
+          sed -i '/^config LSM$/,/^help$/{ /^[[:space:]]*default/ { /baseband_guard/! s/landlock/landlock,baseband_guard/ } }' security/Kconfig
       - name: 添加 KernelSU
         run: |
           echo "更改为配置目录: $CONFIG..."
