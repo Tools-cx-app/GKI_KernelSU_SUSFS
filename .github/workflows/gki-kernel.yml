@@ -202,32 +202,16 @@ jobs:
 
       - name: 添加Re:Kernel
         run: |
-          curl -LSs "https://github.com/Tools-cx-app/gki_patch/raw/main/rekernel.zip" -o rekernel.zip
-          unzip rekernel.zip -d "$CONFIG/common/drivers/"
-          echo '开始添加'
-          cd "$CONFIG/common/"
-          cp drivers/rekernel/setupver.sh ./
-          chmod +x setupver.sh
-          ./setupver.sh
-          cd drivers
-          awk '
-            /endmenu/ { last_endmenu_line = NR }
-            { lines[NR] = $0 }
-            END {
-              for (i=1; i<=NR; i++) {
-                if (i == last_endmenu_line) {
-                  sub(/endmenu/, "", lines[i]);
-                  print lines[i] "source \"drivers/rekernel/Kconfig\""
-                  print ""
-                  print "endmenu"
-                } else {
-                    print lines[i]
-                }
-              }
-            }
-            ' ./Kconfig > Kconfig.tmp && mv Kconfig.tmp ./Kconfig
-          echo "obj-\$(CONFIG_REKERNEL) += rekernel/" >> Makefile
-          
+          CONFIG=$(realpath $CONFIG)
+          git clone https://github.com/Tools-cx-app/Re-Kernel-5-10.git
+          REKERNEL=$(realpath Re-Kernel-5-10)
+          echo '切换到驱动目录'
+          cd "$CONFIG/common/drivers/"
+          echo '当前目录$(pwd)'
+          cp $REKERNEL/LKM-Source/rekernel.* ./
+          echo '补丁加入构建'
+          echo "obj-y += rekernel.o" >> Makefile
+          tail -n 3 Makefile
 
       - name: 添加 KernelSU
         run: |
